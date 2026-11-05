@@ -3,105 +3,107 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Be Bo Assistant — Dashboard</title>
+  <meta name="theme-color" content="#fae9df">
+  <title>Be Bo — Study Dashboard</title>
   <style>
-    :root{--ink:#29211f;--muted:#887b76;--paper:#fffaf7;--peach:#f8e7dd;--accent:#de7848;--line:#f0e3dc;--shadow:0 10px 34px rgba(90,53,38,.045)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(135deg,#fae9df 0%,#f6e3da 58%,#f9ebe4 100%);color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;font-size:14px}
-    .shell{max-width:1600px;min-height:100vh;margin:auto;padding:16px;display:grid;grid-template-columns:146px minmax(0,1fr);gap:28px}
-    aside{background:rgba(255,250,247,.83);border:1px solid rgba(255,255,255,.8);border-radius:22px;padding:19px 12px;min-height:calc(100vh - 32px);position:sticky;top:16px;height:calc(100vh - 32px)}
-    .brand{font-weight:750;font-size:14px;padding:3px 8px 20px}.navgroup{display:grid;gap:5px}.navgroup + .navgroup{border-top:1px solid var(--line);margin-top:14px;padding-top:14px}.nav a{display:flex;align-items:center;gap:10px;text-decoration:none;color:#776964;padding:10px 9px;border-radius:11px;font-size:12px}.nav a.active{background:#fff;color:var(--ink);font-weight:700}.ico{width:16px;text-align:center;color:var(--accent);font-size:13px}
-    main{min-width:0;padding:6px 8px 40px}.topline{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin:7px 1px 33px}.top-actions{display:flex;gap:20px}.intro{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.intro h1{font-size:clamp(30px,4vw,44px);letter-spacing:-1.7px;margin:0 0 8px;font-weight:760}.intro p{margin:0;color:var(--muted);font-size:14px}.status{background:rgba(255,250,247,.86);border:1px solid rgba(255,255,255,.8);border-radius:18px;padding:15px 19px;min-width:235px;box-shadow:var(--shadow)}.status b{display:block;font-size:15px;margin-bottom:6px}.status span{font-size:11px;color:var(--muted);line-height:1.5}
-    .quickbar{margin:22px 0 44px;background:rgba(255,250,247,.83);border:1px solid rgba(255,255,255,.75);border-radius:16px;padding:9px 10px 9px 17px;display:flex;align-items:center;justify-content:space-between;color:#a29590}.quickbar .actions{display:flex;gap:8px}.quickbar button{background:#fff;border:1px solid var(--line);color:#6c5c55;border-radius:20px;padding:8px 12px;font:inherit;font-size:11px}.quickbar .add{background:var(--accent);border:0;border-radius:12px;width:34px;height:34px;color:white;font-size:21px;padding:0}
-    section{margin:0 0 42px}.sectionhead{display:flex;justify-content:space-between;align-items:end;margin-bottom:14px}.sectionhead h2{font-size:20px;letter-spacing:-.4px;margin:0}.sectionhead small{font-size:11px;color:#9c8e88}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.card{background:rgba(255,250,248,.9);border:1px solid rgba(255,255,255,.82);border-radius:19px;box-shadow:var(--shadow)}.metric{min-width:0;min-height:142px;padding:18px;overflow-wrap:anywhere}.metric .label{min-height:17px;color:#806f68;font-size:12px;line-height:1.4}.metric .value{min-height:43px;margin-top:11px;font-size:clamp(23px,2.1vw,30px);line-height:1.2;font-weight:720;letter-spacing:-1px;overflow-wrap:anywhere}.metric .sub{min-height:27px;color:var(--muted);font-size:11px;line-height:1.5}
-    .summary{padding:18px 20px;margin-top:15px}.summary p{margin:0;font-size:13px;line-height:1.75}.summary strong{font-weight:700}
-    .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.module{padding:19px 19px 15px;min-height:217px}.module h3{font-size:14px;margin:0 0 8px}.module p{font-size:11px;color:var(--muted);line-height:1.65;margin:0 0 12px;min-height:36px}.module ul{list-style:none;margin:0;padding:0}.module li{padding:9px 0;border-top:1px solid var(--line);font-size:11px;line-height:1.45;display:flex;gap:9px}.dot{color:var(--accent);font-size:13px}
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.listcard{padding:18px 20px}.listcard h3{margin:0 0 5px;font-size:14px}.listcard .desc{color:var(--muted);font-size:11px;line-height:1.55;margin:0 0 8px}.row{border-top:1px solid var(--line);padding:11px 0;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start}.row b{font-size:12px}.row span{font-size:10px;color:var(--muted);white-space:nowrap}.row p{grid-column:1/-1;margin:-4px 0 0;color:var(--muted);font-size:11px;line-height:1.55}
-    .empty-trends{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.empty{height:110px;border:1px dashed #e8d6cc;border-radius:16px;background:rgba(255,250,247,.36)}.empty-label{font-size:11px;color:#897a74;margin:0 0 9px}.actions3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.action{padding:16px;min-height:90px}.action b{font-size:12px}.action p{margin:7px 0 0;font-size:11px;color:var(--muted);line-height:1.55}.foot{border-top:1px solid rgba(160,120,100,.15);padding:15px 0;color:#998b85;font-size:10px}
+    :root{--ink:#302522;--muted:#8c7a72;--paper:#fffaf7;--peach:#fae9df;--accent:#e77e48;--line:#efdfd6;--shadow:0 10px 34px rgba(90,53,38,.045)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:20px}body{margin:0;background:linear-gradient(135deg,#fae9df 0%,#f6e3da 58%,#f9ebe4 100%);color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;font-size:14px}
+    .shell{max-width:1600px;min-height:100vh;margin:auto;padding:16px;display:grid;grid-template-columns:146px minmax(0,1fr);gap:28px}aside{background:rgba(255,250,247,.85);border:1px solid rgba(255,255,255,.8);border-radius:22px;padding:19px 12px;min-height:calc(100vh - 32px);position:sticky;top:16px;height:calc(100vh - 32px)}
+    .brand{font-weight:750;font-size:14px;padding:3px 8px 20px}.navgroup{display:grid;gap:5px}.navgroup+.navgroup{border-top:1px solid var(--line);margin-top:14px;padding-top:14px}.nav a{display:flex;align-items:center;gap:10px;text-decoration:none;color:#776964;padding:10px 9px;border-radius:11px;font-size:12px}.nav a:hover,.nav a.active{background:#fff;color:var(--ink);font-weight:700}.ico{width:16px;text-align:center;color:var(--accent);font-size:13px}
+    main{min-width:0;padding:6px 8px 40px}.topline{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin:7px 1px 33px}.top-actions{display:flex;gap:20px}.intro{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.intro h1{font-size:clamp(32px,4vw,48px);letter-spacing:-1.8px;margin:0 0 8px;font-weight:760}.intro p{margin:0;color:var(--muted);font-size:14px}.status{background:rgba(255,250,247,.88);border:1px solid rgba(255,255,255,.8);border-radius:18px;padding:15px 19px;min-width:235px;box-shadow:var(--shadow)}.status b{display:block;font-size:15px;margin-bottom:6px}.status span{font-size:11px;color:var(--muted);line-height:1.6}
+    .quickbar{margin:22px 0 38px;background:rgba(255,250,247,.85);border:1px solid rgba(255,255,255,.75);border-radius:16px;padding:9px 10px 9px 17px;display:flex;align-items:center;justify-content:space-between;color:#a29590}.quickbar .actions{display:flex;gap:8px;flex-wrap:wrap}.quickbar button{background:#fff;border:1px solid var(--line);color:#6c5c55;border-radius:20px;padding:8px 12px;font:inherit;font-size:11px;cursor:pointer}.quickbar .add{background:var(--accent);border:0;border-radius:12px;width:34px;height:34px;color:white;font-size:21px;padding:0}
+    section{margin:0 0 38px}.sectionhead{display:flex;justify-content:space-between;align-items:end;margin-bottom:14px}.sectionhead h2{font-size:20px;letter-spacing:-.4px;margin:0}.sectionhead small{font-size:11px;color:#9c8e88}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.card{background:rgba(255,250,248,.92);border:1px solid rgba(255,255,255,.85);border-radius:19px;box-shadow:var(--shadow)}.metric{min-width:0;min-height:142px;padding:18px;overflow-wrap:anywhere}.metric .label{min-height:17px;color:#806f68;font-size:12px;line-height:1.4}.metric .value{min-height:43px;margin-top:11px;font-size:clamp(23px,2.1vw,30px);line-height:1.2;font-weight:720;letter-spacing:-1px;overflow-wrap:anywhere}.metric .sub{min-height:27px;color:var(--muted);font-size:11px;line-height:1.5}.summary{padding:17px 20px;margin-top:14px}.summary p{margin:0;font-size:13px;line-height:1.75}.summary strong{font-weight:700}
+    .timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px;padding:8px 20px}.task{padding:13px 0;border-bottom:1px solid var(--line);display:flex;gap:11px;align-items:flex-start}.task:nth-last-child(-n+3){border-bottom:0}.bullet{flex:0 0 10px;height:10px;margin-top:4px;border:1px solid #c9b5aa;border-radius:50%}.task.done .bullet{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px #fce8dc}.task b{display:block;font-size:12px;line-height:1.45}.task span{display:block;margin-top:4px;color:var(--muted);font-size:10px;line-height:1.45}
+    .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.module{padding:19px;min-height:210px}.module h3{font-size:14px;margin:0 0 8px}.module p{font-size:11px;color:var(--muted);line-height:1.65;margin:0 0 10px}.module ul{list-style:none;margin:0;padding:0}.module li{padding:9px 0;border-top:1px solid var(--line);font-size:11px;line-height:1.5;display:flex;gap:9px}.dot{color:var(--accent);font-size:13px}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.listcard{padding:18px 20px}.listcard h3{margin:0 0 5px;font-size:14px}.listcard .desc{color:var(--muted);font-size:11px;line-height:1.55;margin:0 0 8px}.row{border-top:1px solid var(--line);padding:11px 0;display:grid;grid-template-columns:1fr auto;gap:7px 10px;align-items:start}.row b{font-size:12px}.row span{font-size:10px;color:var(--muted);white-space:nowrap}.row p{grid-column:1/-1;margin:0;color:var(--muted);font-size:11px;line-height:1.55}.actions3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.action{padding:16px;min-height:94px}.action b{font-size:12px}.action p{margin:7px 0 0;font-size:11px;color:var(--muted);line-height:1.55}.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.month{padding:18px}.month .tag{font-size:10px;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.5px}.month h3{font-size:14px;margin:8px 0}.month p{font-size:11px;color:var(--muted);line-height:1.65;margin:0}.goalbar{padding:16px 19px;margin-bottom:14px;display:flex;justify-content:space-between;gap:12px;align-items:center}.goalbar b{font-size:13px}.goalbar span{font-size:11px;color:var(--muted)}.foot{border-top:1px solid rgba(160,120,100,.15);padding:15px 0;color:#998b85;font-size:10px}
     @media(max-width:1000px){.shell{grid-template-columns:125px minmax(0,1fr);gap:18px}.grid4{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:700px){.shell{display:block;padding:10px}.shell aside{position:relative;top:auto;height:auto;min-height:0;margin-bottom:18px;padding:12px}.brand{padding:3px 8px 10px}.nav{display:flex;overflow:auto}.navgroup{display:flex;min-width:max-content}.navgroup+.navgroup{border-top:0;border-left:1px solid var(--line);margin:0 0 0 8px;padding:0 0 0 8px}.nav a{padding:8px}.intro{display:block}.status{margin-top:16px}.topline{margin-bottom:24px}.grid3{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.empty-trends,.actions3{grid-template-columns:1fr}.empty{height:55px}.quickbar{align-items:flex-start;gap:12px;flex-direction:column}.quickbar .actions{flex-wrap:wrap}.sectionhead{align-items:start;gap:10px;flex-direction:column}}
+    @media(max-width:700px){.shell{display:block;padding:10px}.shell aside{position:relative;top:auto;height:auto;min-height:0;margin-bottom:18px;padding:12px}.brand{padding:3px 8px 10px}.nav{display:flex;overflow:auto}.navgroup{display:flex;min-width:max-content}.navgroup+.navgroup{border-top:0;border-left:1px solid var(--line);margin:0 0 0 8px;padding:0 0 0 8px}.nav a{padding:8px}.intro{display:block}.status{margin-top:16px}.topline{margin-bottom:24px}.grid3,.grid2,.roadmap,.actions3{grid-template-columns:1fr}.timeline{grid-template-columns:1fr;padding:8px 17px}.task:nth-last-child(-n+3){border-bottom:1px solid var(--line)}.task:last-child{border-bottom:0}.quickbar{align-items:flex-start;gap:12px;flex-direction:column}.sectionhead{align-items:start;gap:8px;flex-direction:column}.goalbar{align-items:flex-start;flex-direction:column}}
   </style>
 </head>
 <body>
   <div class="shell">
-    <aside class="nav">
-      <div class="brand">Be Bo Assistant</div>
+    <aside class="nav" aria-label="Study dashboard navigation">
+      <div class="brand">Be Bo Study Desk</div>
       <div class="navgroup">
-        <a class="active" href="#overview"><span class="ico">◉</span>Overview</a>
-        <a href="#waybill"><span class="ico">⌂</span>Shipments</a>
-        <a href="#freight"><span class="ico">▤</span>Freight rates</a>
-        <a href="#customs"><span class="ico">◇</span>Customs</a>
+        <a class="active" href="#overview"><span class="ico">☆</span>Achievements</a>
+        <a href="#today"><span class="ico">⌂</span>Today</a>
+        <a href="#notes"><span class="ico">▤</span>Notes</a>
+        <a href="#subjects"><span class="ico">◉</span>Subjects</a>
+        <a href="#assignments"><span class="ico">▣</span>Assignments</a>
       </div>
       <div class="navgroup">
-        <a href="#channels"><span class="ico">▣</span>Communication</a>
-        <a href="#gateway"><span class="ico">↗</span>Gateway</a>
-        <a href="#testing"><span class="ico">✓</span>Testing</a>
-        <a href="#long-term"><span class="ico">⌁</span>Long-term</a>
+        <a href="#knowledge"><span class="ico">◫</span>Knowledge</a>
+        <a href="#review"><span class="ico">↻</span>Review</a>
+        <a href="#long-term"><span class="ico">↗</span>Long-term goals</a>
       </div>
     </aside>
     <main>
-      <div class="topline"><span>Logistics assistant</span><div class="top-actions"><span>Search</span><span>Alerts</span><span>BB</span></div></div>
+      <div class="topline"><span>Personal study plan</span><div class="top-actions"><span>Study</span><span>Notifications</span><span>BB</span></div></div>
       <header class="intro" id="overview">
-        <div><h1>Hello, Be Bo.</h1><p>Logistics consulting assistant — accurate, professional, and fast.</p></div>
-        <div class="status"><b>Configuration status</b><span>Shipment data connected to Lark<br>Automated lookup rules configured</span></div>
+        <div><h1>Good morning, Be Bo.</h1><p>Your AI study companion for planning self-study and weekly preparation.</p></div>
+        <div class="status"><b>Focused study block</b><span>08:30–11:30 · 3 hours of self-study at home<br>Prioritize reading and research</span></div>
       </header>
-      <div class="quickbar"><span>Quick actions</span><div class="actions"><button>Classify cargo</button><button>Check shipping API</button><button>Escalate complex case</button><button class="add" aria-label="New action">+</button></div></div>
+      <div class="quickbar"><span>Quick note: a task / an idea / something to remember…</span><div class="actions"><button onclick="document.querySelector('#assignments').scrollIntoView()">View assignments</button><button onclick="document.querySelector('#notes').scrollIntoView()">Notes</button><button onclick="document.querySelector('#review').scrollIntoView()">Review</button><button class="add" aria-label="Add a note" onclick="document.querySelector('#notes').scrollIntoView()">+</button></div></div>
 
       <section>
-        <div class="sectionhead"><h2>Operational metrics</h2><small>Be Bo dashboard data</small></div>
-        <div class="grid4" aria-label="Four operational metrics">
-          <article class="card metric"><div class="label">Tokens used</div><div class="value">1.24 billion</div><div class="sub">Estimated cost: $1,340</div></article>
-          <article class="card metric"><div class="label">Lookups per day</div><div class="value">4,820 shipments</div><div class="sub">Peak: 6,100 shipments (09/10)</div></article>
-          <article class="card metric"><div class="label">AI response rate</div><div class="value">98.4%</div><div class="sub">Average latency: 1.2 seconds</div></article>
-          <article class="card metric"><div class="label">Lark sessions</div><div class="value">15,400</div><div class="sub">24 integrated agent models</div></article>
+        <div class="sectionhead"><h2>Study achievements</h2><small>Figures from your study plan</small></div>
+        <div class="grid4" aria-label="Four study metrics">
+          <article class="card metric"><div class="label">Assignments completed</div><div class="value">9 <small style="font-size:14px;letter-spacing:0">/ 12</small></div><div class="sub">3 assignments pending</div></article>
+          <article class="card metric"><div class="label">Study streak</div><div class="value">5 <small style="font-size:14px;letter-spacing:0">days</small></div><div class="sub">5-day goal completed</div></article>
+          <article class="card metric"><div class="label">Study time this week</div><div class="value">10 <small style="font-size:14px;letter-spacing:0">hours</small></div><div class="sub">Up 1.7 hours from last week</div></article>
+          <article class="card metric"><div class="label">AI study sessions</div><div class="value">25 <small style="font-size:14px;letter-spacing:0">sessions</small></div><div class="sub">Across core subjects and topics</div></article>
         </div>
-        <article class="card summary"><p><strong>Current status:</strong> Be Bo is configured, connected to shipment data in Lark, and set up with automated lookup rules for employees and customers.</p></article>
+        <article class="card summary"><p><strong>Current progress:</strong> Be Bo has completed 9 of 12 assignments, maintained a 5-day study streak, and logged 10 study hours this week. Three assignments remain to be completed before the weekend.</p></article>
+      </section>
+
+      <section id="today">
+        <div class="sectionhead"><h2>Today & this week</h2><small>Schedule, assignments, and recorded milestones</small></div>
+        <article class="card timeline" id="assignments">
+          <div class="task done"><i class="bullet"></i><div><b>Complete the specialized course assignment</b><span>Completed · Tuesday, 2:00 PM</span></div></div>
+          <div class="task done"><i class="bullet"></i><div><b>Summarize the previous chapter materials</b><span>Completed · Thursday, 9:15 AM</span></div></div>
+          <div class="task done"><i class="bullet"></i><div><b>Review new vocabulary</b><span>Scheduled · Friday, 10:30 AM</span></div></div>
+          <div class="task"><i class="bullet"></i><div><b>Finish the 3 remaining assignments</b><span>Pending · Before the weekend</span></div></div>
+          <div class="task"><i class="bullet"></i><div><b>Read 2 advanced chapters</b><span>Target completion: before Friday</span></div></div>
+          <div class="task"><i class="bullet"></i><div><b>Review and wrap up the week</b><span>Review previous material: Thursday · Weekly report: Saturday morning</span></div></div>
+        </article>
       </section>
 
       <section>
-        <div class="sectionhead"><h2>AI agent deployment workflow</h2><small>For Be Bo</small></div>
+        <div class="sectionhead"><h2>This week’s study plan</h2><small>Self-study and preparation plan</small></div>
         <div class="grid3">
-          <article class="card module" id="waybill"><h3>Role & logistics knowledge</h3><p>Define Be Bo’s core responsibilities and response style.</p><ul><li><span class="dot">●</span>Look up shipment tracking numbers</li><li id="freight"><span class="dot">●</span>Advise on freight rates</li><li id="customs"><span class="dot">●</span>Answer customs procedure questions</li></ul></article>
-          <article class="card module" id="channels"><h3>Communication & gateway</h3><p>Connect internal logistics systems with employees and customers on Lark.</p><ul><li><span class="dot">●</span>Sync data to Lark Suite</li><li><span class="dot">●</span>Enable direct chat for field staff and customers</li><li id="gateway"><span class="dot">●</span>Alert on delayed or border-blocked shipments; keep the gateway running 24/7</li></ul></article>
-          <article class="card module" id="testing"><h3>Testing & operations monitoring</h3><p>Evaluate accuracy and response speed using real-world scenarios.</p><ul><li><span class="dot">●</span>Incorrect dimensional weight calculation</li><li><span class="dot">●</span>Misunderstood delivery address</li><li><span class="dot">●</span>Slow response under heavy data load</li></ul></article>
+          <article class="card module" id="subjects"><h3>Goals & study schedule</h3><p>Build a consistent study habit and protect the morning focus block.</p><ul><li><span class="dot">●</span>5-day streak goal completed</li><li><span class="dot">●</span>Self-study at home, 8:30–11:30 AM</li><li><span class="dot">●</span>Continue studying consistently throughout the week</li></ul></article>
+          <article class="card module"><h3>Assignments & tasks</h3><p>Track the three remaining assignments and schedule time to finish them before the weekend.</p><ul><li><span class="dot">●</span>Specialized course assignment completed</li><li><span class="dot">●</span>3 major assignments still to finish</li><li><span class="dot">●</span>Spread the work from Tuesday through Friday</li></ul></article>
+          <article class="card module" id="notes"><h3>Notes & knowledge</h3><p>Save key ideas, note materials, and summarize after each morning study session.</p><ul><li><span class="dot">●</span>Summary of the previous chapter completed</li><li><span class="dot">●</span>Read 2 more advanced chapters</li><li><span class="dot">●</span>Use the final 20 minutes of the morning session for notes</li></ul></article>
         </div>
       </section>
 
-      <section>
-        <div class="sectionhead"><h2>Review & optimization</h2><small>Items to monitor</small></div>
+      <section id="review">
+        <div class="sectionhead"><h2>Review & improve study habits</h2><small>Suggested study routine</small></div>
         <div class="grid2">
-          <article class="card listcard"><h3>Update knowledge</h3><p class="desc">Keep Be Bo’s operational knowledge aligned with logistics changes.</p><div class="row"><b>Customs tax policies</b><span>Knowledge Base</span><p>Keep the knowledge base current with customs tax policy changes.</p></div><div class="row"><b>Peak-season rate cards</b><span>Knowledge Base</span><p>Add peak-season freight rates to the knowledge base.</p></div></article>
-          <article class="card listcard"><h3>Test response scenarios</h3><p class="desc">Test how the agent handles customer complaints on Lark.</p><div class="row"><b>Damaged-goods complaint</b><span>Lark</span><p>Simulate an upset customer complaint to assess Be Bo’s response.</p></div></article>
+          <article class="card listcard"><h3>Regular review</h3><p class="desc">Schedule review and weekly wrap-up based on the plan.</p><div class="row"><b>Review previous material</b><span>Thursday</span><p>Review what you have learned and note anything that needs another look.</p></div><div class="row"><b>Weekly evaluation and report</b><span>Saturday morning</span><p>Summarize this week’s study progress.</p></div></article>
+          <article class="card listcard"><h3>Focus habits</h3><p class="desc">Make the most of the morning self-study block.</p><div class="row"><b>Read challenging materials</b><span>08:30</span><p>Prioritize reading and research at the start of the focus block.</p></div><div class="row"><b>Summarize key knowledge</b><span>Last 20 minutes</span><p>Capture key ideas in the organized notes file.</p></div></article>
         </div>
       </section>
 
       <section>
-        <div class="sectionhead"><h2>Action plan</h2><small>Three next steps</small></div>
+        <div class="sectionhead"><h2>Three next steps</h2><small>Priority actions</small></div>
         <div class="actions3">
-          <article class="card action"><b>Finalize the cargo classification prompt</b><p>Classify standard, high-value, and dangerous goods.</p></article>
-          <article class="card action"><b>Check API reliability</b><p>Assess shipment data connectivity during peak status-update periods.</p></article>
-          <article class="card action"><b>Refine human handoffs</b><p>Improve the Human-in-the-loop process for complex cases.</p></article>
-        </div>
-      </section>
-
-      <section>
-        <div class="sectionhead"><h2>Key operational tasks</h2><small>Items being tracked</small></div>
-        <div class="grid3">
-          <article class="card action"><b>Review complex cargo flow classification scenarios</b><p>Today</p></article>
-          <article class="card action"><b>Sync the API for border customs clearance status</b><p>This week</p></article>
-          <article class="card action"><b>Update ocean freight rates and bunker adjustment factor (BAF)</b><p>Wednesday</p></article>
+          <article class="card action"><b>Work through the 3 outstanding assignments</b><p>Schedule them one by one across the middle of the week.</p></article>
+          <article class="card action"><b>Complete the 2 advanced chapters</b><p>Finish reading and taking notes by Friday.</p></article>
+          <article class="card action"><b>Review and wrap up the week</b><p>Review on Thursday; write the report on Saturday morning.</p></article>
         </div>
       </section>
 
       <section id="long-term">
-        <div class="sectionhead"><h2>Trend analysis & long-term direction</h2><small>Projects / OKRs · 3–12 months</small></div>
-        <article class="card summary" style="margin:0 0 14px"><p>A long-term compass for Be Bo’s goals over the next 3–12 months, keeping strategic priorities in view alongside daily operations.</p></article>
-        <div class="grid3">
-          <article class="card listcard"><h3>Market trends</h3><p class="desc">Explore AI to forecast global ocean freight rate changes and provide real-time port congestion alerts.</p></article>
-          <article class="card listcard"><h3>International expansion</h3><p class="desc">Expand Chinese, English, and Vietnamese language support for direct cross-border shipment processing.</p></article>
-          <article class="card listcard"><h3>Core media channels</h3><div class="empty" aria-label="No core media channel data provided"></div></article>
+        <div class="sectionhead"><h2>Long-term goals</h2><small>3-month roadmap</small></div>
+        <article class="card goalbar"><b>Reach IELTS 6.5 and complete the Python Programming course</b><span>Goal for the next 3 months</span></article>
+        <div class="roadmap" id="knowledge">
+          <article class="card month"><span class="tag">Month 1</span><h3>Strengthen the foundations</h3><p>Review advanced grammar, add 500 core vocabulary words, and practice Reading and Listening by question type.</p></article>
+          <article class="card month"><span class="tag">Month 2</span><h3>Build skills</h3><p>Learn strategies for all four IELTS skills; spend two sessions per week on Python basics, including syntax and data types.</p></article>
+          <article class="card month"><span class="tag">Month 3</span><h3>Practice & apply</h3><p>Take timed IELTS mock tests, improve Writing and Speaking, and complete a small Python project.</p></article>
         </div>
       </section>
-      <div class="foot">Be Bo dashboard · Content based on information you provided</div>
+      <footer class="foot">Be Bo Study Dashboard · Content and figures from your study plan.</footer>
     </main>
   </div>
 </body>
